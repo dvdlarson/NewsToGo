@@ -1,0 +1,62 @@
+body {
+    background-image:url("../img/background.png");
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    height:100%
+}
+
+html {
+    height:100%;
+   }
+
+
+
+#siteTitle {
+    font-family: 'Bungee Shade', cursive;
+    font-size:5rem;
+}
+
+#createTitle {
+    font-family: 'Bungee', cursive;
+    font-size:20px;
+    margin-bottom:-10px;
+}
+
+.columnTitle {
+    font-family: 'Bungee', cursive;
+    font-size:30px;
+}
+
+li {
+    list-style:none;
+}
+.bg {
+    /* The image used */
+    background-image: url("../img/background.png");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.burgerlist {
+    height:25px;
+    margin-bottom:5px;
+    width:100%;
+    font-size:1.5rem;
+    
+}
+
+#newBurger {
+    width:300px;
+    text-align:center;
+}
+#burgerarea {
+    background-color:rgba(255, 255, 255, 0.4);
+    color:black;
+}
