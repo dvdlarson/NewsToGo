@@ -13,18 +13,18 @@ html {
 
 
 #siteTitle {
-    font-family: 'Bungee Shade', cursive;
+    font-family: 'Hammersmith One', sans-serif;
     font-size:5rem;
 }
 
 #createTitle {
-    font-family: 'Bungee', cursive;
+    font-family: 'Hammersmith One', sans-serif;
     font-size:20px;
     margin-bottom:-10px;
 }
 
 .columnTitle {
-    font-family: 'Bungee', cursive;
+    font-family: 'Hammersmith One', sans-serif;
     font-size:30px;
 }
 
@@ -44,8 +44,8 @@ li {
     background-size: cover;
 }
 
-.burgerlist {
-    height:25px;
+.article {
+    height:50px;
     margin-bottom:5px;
     width:100%;
     font-size:1.5rem;
@@ -56,7 +56,7 @@ li {
     width:300px;
     text-align:center;
 }
-#burgerarea {
+#articlearea {
     background-color:rgba(255, 255, 255, 0.4);
     color:black;
 }

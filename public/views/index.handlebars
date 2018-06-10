@@ -1,0 +1,45 @@
+
+<div class="container">
+    <div id="articlearea" class="row text-center">
+        <div  class="col-md-12">
+        <h1 id="siteTitle">Politico To Go</h1>
+        </div>
+        <div class="col-md-12">
+        <h2 class="columnTitle">Current Articles:</h2>
+
+        <ul>
+         {{#each articles}}
+            
+            <div class="panel panel-default">
+                <div class="panel-body"><a href={{this.link}}>{{this.title}}</a>
+                <button type="submit" data-id={{id}} class="save-article">Save</button>
+                <button type="add-note" data-id={{id}} class="add-note">Add Note</button>
+                </div>
+            </div>
+            
+            {{/each}}
+            
+        </ul>
+        </div>{{!--uneaten--}}
+        <div class="col-md-6">
+        <h2 class="columnTitle">Burgers already eaten</h2>
+
+        <ul>
+            {{#each burgers}}
+            {{#if this.devoured}}
+            <li class="burgerlist">{{this.name}}
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+        </div>{{!--eaten--}}
+<div class="col-md-12" id="add-burger">
+  <form id="burgerform" class="add-burger">
+    <div class="row text-center formtitle" id="createTitle">Create a burger:</div><br>
+    <input type="text" id="newBurger" name="newBurger">
+    <br>
+    <button type ="submit">Submit</button>
+</form>
+</div>
+    </div>{{!--main row--}}
+</div>{{!--container--}}
