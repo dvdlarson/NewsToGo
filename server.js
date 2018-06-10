@@ -25,12 +25,17 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
-
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({
+  defaultLayout: "main"
+}));
+app.set("view engine", "handlebars");
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/mongoheadlines");
 
 // Routes
-
+//var routes = require("./routes");
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
@@ -64,12 +69,13 @@ app.get("/scrape", function(req, res) {
     });
 
     // If we were able to successfully scrape and save an Article, send a message to the client
-    res.send("Scrape Complete");
+    res.redirect("/articles");
+    
   });
 });
 
-// Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
+// API Route for getting JSON of all Articles from the db
+app.get("/api/articles", function(req, res) {
   // Grab every document in the Articles collection
   db.Article.find({})
     .then(function(dbArticle) {
@@ -80,6 +86,29 @@ app.get("/articles", function(req, res) {
       // If an error occurred, send it to the client
       res.json(err);
     });
+});
+
+// Route for getting all Articles from the db
+app.get("/articles", function(req, res) {
+  // Query MongoDB for all article entries (sort newest to top, assuming Ids increment)
+  db.Article.find().sort({_id: -1})
+
+    // But also populate all of the comments associated with the articles.
+    .populate('notes')
+
+    // Then, send them to the handlebars template to be rendered
+    .exec(function(err, doc){
+      // log any errors
+      if (err){
+        console.log(err);
+      } 
+      // or send the doc to the browser as a json object
+      else {
+        var hbsObject = {articles: doc}
+        res.render('index', hbsObject);
+        // res.json(hbsObject)
+      }
+});
 });
 
 // Route for grabbing a specific Article by id, populate it with it's note
