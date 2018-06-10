@@ -1,0 +1,21 @@
+
+<div class="container">
+    <div id="articlearea" class="row text-center">
+        <div  class="col-md-12">
+        <h1 id="siteTitle">Politico To Go</h1>
+        </div>
+        <div class="col-md-12">
+        <h2 class="columnTitle">Current Articles:</h2>
+         {{#each articles}}   
+            <div class="panel panel-default">
+                <div class="panel-body"><a href={{this.link}}>{{this.title}}</a>
+                <button type="submit" data-id={{id}} class="pull-right save-article">Save</button>
+                <button type="pull-right add-note" data-id={{id}} class="add-note">Add Note</button>
+                </div>
+            </div> 
+        {{/each}}
+        
+        </div>{{!--uneaten--}}
+        
+
+    </div>{{!--main row--}}
