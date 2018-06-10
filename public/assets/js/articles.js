@@ -35,12 +35,17 @@ $(function () {
           saved: true
               };
 
-      $.ajax("/articles/" + id, {
+      $.ajax("/articles/save/" + id, {
           type: "PUT",
           data: saved
       }).then(function () {
         console.log("saved ID# " + id );
           location.reload();
+      }).then(function(){
+            $('#'+ id).innerHTML="<h3>Article Has Been Saved.</h3>";
+        setTimeout(function(){
+          removeElement(id);
+        },1000)
       });
   //  }
 

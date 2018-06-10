@@ -7,7 +7,7 @@
         <div class="col-md-12">
         <h2 class="columnTitle">Current Articles:</h2>
          {{#each articles}}   
-            <div class="panel panel-default">
+            <div id={{id}} class="panel panel-default">
                 <div class="panel-body"><a href={{this.link}}>{{this.title}}</a>
                 <button type="submit" data-id={{id}} class="pull-right save-article">Save</button>
                 <button type="add-note" data-id={{id}} class="pull-right add-note">Add Note</button>
