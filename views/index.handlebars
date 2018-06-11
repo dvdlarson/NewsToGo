@@ -7,10 +7,9 @@
     </div>
       <div  class="row text-center">
         <div class="col-md-12">
-        <form action="/scrape" method="get">
-            <button class="btn btn-danger scrape">Scrape New Articles!</button>
-		</form>
-        <button class="btn btn-primary" id="saved" href="/saved">Saved Articles</button>
+            <form action="/scrape" method="get">
+                <button id="scrape" class="btn btn-danger scrape">Scrape New Articles!</button>
+            </form>
         </div>
     </div>
     
@@ -20,13 +19,13 @@
         <h2 class="columnTitle">Current Articles:</h2>
         <div id="accordion">
          {{#each articles}}   
-            <div id={{id}} class="card">
+            <div id={{id}} class="card article-card">
                 <div class="card-header">
                     <h5 class="mb-0 article-link"><a target="_blank" href={{this.link}}>{{this.title}}</a></h5>
 
                     <button type="submit" data-id={{id}} class="pull-right save-article">Save</button>
-                    <button  data-toggle="collapse"  href='#form-{{id}}' class="pull-right">Add Note</button>
-                    <button  data-toggle="collapse"  href='#collapse-{{id}}'  class="pull-right view-note">View Notes</button>
+                    <button  data-toggle="collapse"  href='#noteform-{{id}}' class="pull-right">Add Note</button>
+                    <button  data-toggle="collapse"  href='#collapse-{{id}}' class="pull-right view-note">View Notes</button>
                 </div>
                 <div id='collapse-{{id}}' class="collapse hide" aria-labelledby="notes" data-parent="#accordion">
                     <div class="card-body">
@@ -43,9 +42,9 @@
                        </ul>
                     </div>
                 </div>
-                   <div id='form-{{id}}' class="collapse hide" aria-labelledby="notes" data-parent="#accordion">
+                   <div id='noteform-{{id}}' class="collapse hide" aria-labelledby="notes" data-parent="#accordion">
                     <div class="card-body">
-                        <form>
+                        <form id='form-{{id}}'>
                             <div class="form-group">
                                 <label for="author">Your Name</label>
                                 <textarea class="form-control" name="author" rows="3"></textarea>
