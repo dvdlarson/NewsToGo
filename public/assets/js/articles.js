@@ -1,36 +1,12 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 
-$(function () {
-
-
-//   $(".save-article").on("submit", function (event) {
-//       event.preventDefault();
-//       var newBurger = {
-//       name: $("#newBurger").val().trim()
-//       };
-//       $("#newBurger").empty();
-//       $("#burgerform")[0].reset();
-//       console.log("attempting to add: "+newBurger.name);
-//       $.ajax("/api/burgers", {
-//           type: "POST",
-//           data: newBurger
-//       }).then(function () {
-//           console.log("Added new burger: " + newBurger.name);
-//           location.reload();
-          
-//       });
-//   });
-
-
+$(document).ready(function () {
 
   $(".save-article").click(function (event) {
       event.preventDefault();
-      //i tried.
-      // var audio = new Audio('../assets/img/burger.mp3');
-      // audio.play();
-      // audio.onended = function(){
-      var id = $(this).data("id");
       
+      var id = $(this).data("id");
+      console.log("got here id:",id)
       var saved = {
           saved: true
               };
@@ -47,10 +23,34 @@ $(function () {
           removeElement(id);
         },1000)
       });
-  //  }
+    
+
 
   });
 
+
+  $(".add-note").click(function (event){
+    event.preventDefault();
+    var articleId = $(this).data("id");
+    var formName = "form-" + articleId;
+    var form = $('#' + formName); 
+    console.log(form.serialize());
+    var baseURL = window.location.origin;
+    $.ajax({
+        url: baseURL + '/add-note/' + articleId,
+        type: 'POST',
+        data: form.serialize()
+      })
+      .done(function() {
+        // Refresh the Window after the call is done
+        location.reload();
+      });
+      
+      // Prevent Default
+      return false;
+  
+  });
+ 
 
 
 });
