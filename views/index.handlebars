@@ -1,21 +1,66 @@
 
 <div class="container">
-    <div id="articlearea" class="row text-center">
-        <div  class="col-md-12">
+    <div  class="row text-center">
+        <div class="col-md-12">
         <h1 id="siteTitle">Politico To Go</h1>
         </div>
+    </div>
+      <div  class="row text-center">
+        <div class="col-md-12">
+        <form action="/scrape" method="get">
+            <button class="btn btn-danger scrape">Scrape New Articles!</button>
+		</form>
+        <button class="btn btn-primary" id="saved" href="/saved">Saved Articles</button>
+        </div>
+    </div>
+    
+    <div id="articlearea" class="row text-center">
+        
         <div class="col-md-12">
         <h2 class="columnTitle">Current Articles:</h2>
+        <div id="accordion">
          {{#each articles}}   
-            <div id={{id}} class="panel panel-default">
-                <div class="panel-body"><a href={{this.link}}>{{this.title}}</a>
-                <button type="submit" data-id={{id}} class="pull-right save-article">Save</button>
-                <button type="add-note" data-id={{id}} class="pull-right add-note">Add Note</button>
-                <button type="add-note" data-id={{id}} class="pull-right add-note">View Notes</button>
+            <div id={{id}} class="card">
+                <div class="card-header">
+                    <h5 class="mb-0 article-link"><a target="_blank" href={{this.link}}>{{this.title}}</a></h5>
+
+                    <button type="submit" data-id={{id}} class="pull-right save-article">Save</button>
+                    <button  data-toggle="collapse" data-id={{id}} href='#form-{{id}}' class="pull-right add-note">Add Note</button>
+                    <button  data-toggle="collapse" data-id={{id}} href='#collapse-{{id}}'  class="pull-right view-note">View Notes</button>
+                </div>
+                <div id='collapse-{{id}}' class="collapse hide" aria-labelledby="notes" data-parent="#accordion">
+                    <div class="card-body">
+                        <ul class="list-group">
+                       {{#if notes}}
+                        {{#each note}}
+                           
+                            <li class="list-group-item"> {{body}}</li>
+                      
+                        {{/each}}
+                       {{else}}
+                       <li class="list-group-item">No Comments Here. You should add one!</li>
+                       {{/if}}
+                       </ul>
+                    </div>
+                </div>
+                   <div id='form-{{id}}' class="collapse hide" aria-labelledby="notes" data-parent="#accordion">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="author">Your Name</label>
+                                <textarea class="form-control" id="author" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="body">Enter note here:</label>
+                                <textarea class="form-control" id="body" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="add-note btn btn-primary mb-2">Add a Note</button>
+                        </form>
+                    </div>
                 </div>
             </div> 
         {{/each}}
-        
+        </div>
         </div>{{!--uneaten--}}
         
 

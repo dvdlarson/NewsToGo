@@ -2,38 +2,31 @@ var request = require('request');
 var express = require("express");
 var mongoose = require("mongoose");
 var path = require('path');
-// Axios is a promised-based http library, similar to jQuery's Ajax method
-// It works on the client and on the server
 var axios = require("axios");
 var cheerio = require("cheerio");
 // Require all models
 var db = require("../models");
 // Initialize Express
-var app = express.Router();
+var router = express.Router();
 
 //Routes
 
 // Routes
 //var routes = require("./routes");
 
-app.get("/",function(req,res){
+router.get("/",function(req,res){
     res.redirect('/scrape');
 })
-// A GET route for scraping the echoJS website
+// A GET route for scraping 
 
 
-app.get("/scrape", function(req, res) {
-    // First, we grab the body of the html with request
+router.get("/scrape", function(req, res) {
     axios.get("http://www.politico.com/").then(function(response) {
-      // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(response.data);
-  
-      // Now, we grab every h1 that is a 'headline' class, and do the following:
       $("h1.headline").each(function(i, element) {
-        // Save an empty result object
+        
         var result = {};
   
-        // Add the text and href of every link, and save them as properties of the result object
         result.title = $(this)
           .children("a")
           .text();
@@ -65,7 +58,7 @@ app.get("/scrape", function(req, res) {
   });
   
   // API Route for getting JSON of all Articles from the db
-  app.get("/api/articles", function(req, res) {
+  router.get("/api/articles", function(req, res) {
     
     db.Article.find()
       .then(function(dbArticle) {
@@ -80,7 +73,7 @@ app.get("/scrape", function(req, res) {
   
   // Route for getting all Articles from the db
   // Grab every document in the Articles collection that is NOT saved
-  app.get("/articles", function(req, res) {
+  router.get("/articles", function(req, res) {
     // sort by id descending)
     db.Article.find({ saved: false }).sort({_id: -1})
   
@@ -103,7 +96,7 @@ app.get("/scrape", function(req, res) {
 
   // Route for getting all Articles from the db
   // Grab every document in the Articles collection that is NOT saved
-  app.get("/saved/articles", function(req, res) {
+  router.get("/saved/articles", function(req, res) {
     // sort by id descending)
     db.Article.find({ saved: true }).sort({_id: -1})
   
@@ -125,14 +118,11 @@ app.get("/scrape", function(req, res) {
   });
   
   //select article by id and populate notes
-  app.get("/articles/:id", function(req, res) {
-    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  router.get("/articles/:id", function(req, res) {
     db.Article.findOne({ _id: req.params.id })
-      // ..and populate all of the notes associated with it
-      .populate("note")
+        .populate("note")
       .then(function(dbArticle) {
-        // If we were able to successfully find an Article with the given id, send it back to the client
-        res.json(dbArticle);
+         res.json(dbArticle);
       })
       .catch(function(err) {
         // If an error occurred, send it to the client
@@ -141,7 +131,7 @@ app.get("/scrape", function(req, res) {
   });
   
   // Route for saving article note
-  app.post("/articles/:id", function(req, res) {
+  router.post("/add-note/:id", function(req, res) {
     // Create a new note 
     db.Note.create(req.body)
       .then(function(dbNote) {
@@ -156,7 +146,7 @@ app.get("/scrape", function(req, res) {
   });
 
   // Route for saving article 
-  app.post("/articles/save/:id", function(req, res) {
+  router.post("/articles/save/:id", function(req, res) {
     //select article by ID and updated the saved value to true
    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true }, { new: true })
       .then(function(dbArticle) {
@@ -168,7 +158,7 @@ app.get("/scrape", function(req, res) {
     
   });
   // Route for 'deleting' saved article 
-  app.post("/articles/delete/:id", function(req, res) {
+  router.post("/articles/delete/:id", function(req, res) {
     //select article by ID and updated the saved value to true
    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false }, { new: true })
       .then(function(dbArticle) {
@@ -179,3 +169,5 @@ app.get("/scrape", function(req, res) {
       });
     
   });
+
+  module.exports = router;

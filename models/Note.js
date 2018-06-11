@@ -9,7 +9,7 @@ var NoteSchema = new Schema({
   // `author` is of type String
  // author: String, <--use this later maybe
   // `title` is of type String
-  title: String,
+  author: String,
   // `body` is of type String
   body: String
 });
