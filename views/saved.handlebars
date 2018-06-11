@@ -2,7 +2,7 @@
 <div class="container">
     <div  class="row text-center">
         <div class="col-md-12">
-        <h1 id="siteTitle">Politico To Go</h1>
+        <h1 id="siteTitle">My Saved Articles</h1>
         </div>
     </div>
       <div  class="row text-center">
@@ -25,8 +25,8 @@
                     <h5 class="mb-0 article-link"><a target="_blank" href={{this.link}}>{{this.title}}</a></h5>
 
                     <button type="submit" data-id={{id}} class="pull-right save-article">Save</button>
-                    <button  data-toggle="collapse"  href='#form-{{id}}' class="pull-right">Add Note</button>
-                    <button  data-toggle="collapse"  href='#collapse-{{id}}'  class="pull-right view-note">View Notes</button>
+                    <button  data-toggle="collapse" data-id={{id}} href='#form-{{id}}' class="pull-right add-note">Add Note</button>
+                    <button  data-toggle="collapse" data-id={{id}} href='#collapse-{{id}}'  class="pull-right view-note">View Notes</button>
                 </div>
                 <div id='collapse-{{id}}' class="collapse hide" aria-labelledby="notes" data-parent="#accordion">
                     <div class="card-body">
@@ -48,13 +48,13 @@
                         <form>
                             <div class="form-group">
                                 <label for="author">Your Name</label>
-                                <textarea class="form-control" name="author" rows="3"></textarea>
+                                <textarea class="form-control" id="author" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="body">Enter note here:</label>
-                                <textarea class="form-control" name="body" rows="3"></textarea>
+                                <textarea class="form-control" id="body" rows="3"></textarea>
                             </div>
-                            <button type="submit" data-id={{id}} class="add-note btn btn-primary mb-2">Add a Note</button>
+                            <button type="submit" class="add-note btn btn-primary mb-2">Add a Note</button>
                         </form>
                     </div>
                 </div>

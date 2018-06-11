@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
   $(".save-article").click(function (event) {
-      event.preventDefault();
+      
       
       var id = $(this).data("id");
       console.log("got here id:",id)
@@ -11,9 +11,9 @@ $(document).ready(function () {
           saved: true
               };
 
-      $.ajax("/articles/save/" + id, {
-          type: "PUT",
-          data: saved
+      $.ajax('/articles/save/' + id, {
+          type: "POST",
+        
       }).then(function () {
         console.log("saved ID# " + id );
           location.reload();
@@ -30,12 +30,15 @@ $(document).ready(function () {
 
 
   $(".add-note").click(function (event){
-    event.preventDefault();
+   
     var articleId = $(this).data("id");
     var formName = "form-" + articleId;
     var form = $('#' + formName); 
+    console.log('formname',formName);
+    console.log(form.author);
     console.log(form.serialize());
     var baseURL = window.location.origin;
+    console.log(baseURL);
     $.ajax({
         url: baseURL + '/add-note/' + articleId,
         type: 'POST',

@@ -36,7 +36,8 @@ router.get("/scrape", function(req, res) {
   
           //check for duplicates
           db.Article.count( { link : result.link}, function(error, count) {
-            if(count==0){   
+              if (error){console.log(error)}
+            else if(count==0){   
         // Create a new Article using the `result` object built from scraping
         db.Article.create(result)
           .then(function(dbArticle) {
@@ -96,7 +97,7 @@ router.get("/scrape", function(req, res) {
 
   // Route for getting all Articles from the db
   // Grab every document in the Articles collection that is NOT saved
-  router.get("/saved/articles", function(req, res) {
+  router.get("/saved", function(req, res) {
     // sort by id descending)
     db.Article.find({ saved: true }).sort({_id: -1})
   
@@ -133,6 +134,7 @@ router.get("/scrape", function(req, res) {
   // Route for saving article note
   router.post("/add-note/:id", function(req, res) {
     // Create a new note 
+    console.log('add note req body',req.body)
     db.Note.create(req.body)
       .then(function(dbNote) {
         return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
@@ -148,6 +150,7 @@ router.get("/scrape", function(req, res) {
   // Route for saving article 
   router.post("/articles/save/:id", function(req, res) {
     //select article by ID and updated the saved value to true
+    console.log('got to the router',req.body);
    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true }, { new: true })
       .then(function(dbArticle) {
         res.json(dbArticle);
