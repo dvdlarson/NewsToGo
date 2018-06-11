@@ -1,4 +1,4 @@
-var request = require('request');  
+  
 var express = require("express");
 var mongoose = require("mongoose");
 var path = require('path');
@@ -134,8 +134,8 @@ router.get("/scrape", function(req, res) {
   // Route for saving article note
   router.post("/add-note/:id", function(req, res) {
     // Create a new note 
-    console.log('add note req body',req.body)
-    db.Note.create(req.body)
+    console.log(req.body)
+    db.Note.create()
       .then(function(dbNote) {
         return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
       })
