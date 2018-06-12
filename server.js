@@ -12,7 +12,7 @@ var app = express();
 var router = require('./controllers/controller.js');
 app.use('/', router);
 var PORT = 3000;
-
+var MONGODB_URI = "mongodb://heroku_s3h8ts8g:9doc85r01bscs5e6b0"
 // Initialize Express
 
 
@@ -31,7 +31,7 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 // Connect to the Mongo DB
-mongoose.connect("mongodb://heroku_s3h8ts8g:9doc85r01bscs5e6b04"||"mongodb://localhost/mongoheadlines");
+mongoose.connect("mongodb://heroku1041:db104185210@ds051903.mlab.com:51903/heroku_s3h8ts8g");
 
 
 
