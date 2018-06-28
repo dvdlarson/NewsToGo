@@ -11,7 +11,7 @@ var cheerio = require("cheerio");
 var app = express();
 var router = require('./controllers/controller.js');
 app.use('/', router);
-app.set( 'port', ( process.env.PORT || 5000 ));
+
 
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
@@ -39,6 +39,7 @@ mongoose.connect(MONGODB_URI);
 
 
 // Start the server
-app.listen(PORT, function() {
+
+app.listen(process.env.PORT || 5000, function() {
   console.log("App running on port " + PORT + "!");
 });
