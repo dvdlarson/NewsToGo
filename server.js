@@ -5,14 +5,16 @@ var mongoose = require("mongoose");
 var request = require('request');
 var axios = require("axios");
 var cheerio = require("cheerio");
-var APIKey="0d356412ea364ed89f3e4c595713817e";
+//var APIKey="0d356412ea364ed89f3e4c595713817e";
 // Require all models
 //var db = require("./models");
 var app = express();
 var router = require('./controllers/controller.js');
 app.use('/', router);
-var PORT = 3000;
-var MONGODB_URI = "mongodb://heroku_s3h8ts8g:9doc85r01bscs5e6b0"
+app.set( 'port', ( process.env.PORT || 5000 ));
+
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 // Initialize Express
 
 
@@ -31,7 +33,8 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 // Connect to the Mongo DB
-mongoose.connect("mongodb://heroku1041:db104185210@ds051903.mlab.com:51903/heroku_s3h8ts8g");
+mongoose.Promise = Promise;
+mongoose.connect(MONGODB_URI);
 
 
 
